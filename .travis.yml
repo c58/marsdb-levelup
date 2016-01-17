@@ -9,4 +9,4 @@ install:
 node_js:
   - "5.3"
 
-script: npm run test_browser
+script: npm test
