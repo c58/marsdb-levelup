@@ -9,8 +9,8 @@ describe('LevelStorageManager', () => {
 
   let db, localStorage;
   beforeEach(function () {
+    StorageManager.defaultStorageLocation('./test/leveldb');
     db = new Collection('test', {storageManager: StorageManager});
-    StorageManager.defaultStorageLocation('./test/leveldb')
 
     return Promise.all([
       db.storage.destroy(),
