@@ -122,26 +122,26 @@ var LevelStorageManager = function (_StorageManager) {
     value: function _loadStorage() {
       var _this6 = this;
 
-      return new Promise(function (resolve, reject) {
-        var dbName = _this6.db.modelName;
-        var storageLocation = _this6.options.storageLocation || _defaultStorageLocation;
-        var dbLocation = storageLocation + '/' + dbName;
+      var dbName = this.db.modelName;
+      var storageLocation = this.options.storageLocation || _defaultStorageLocation;
+      var dbLocation = storageLocation + '/' + dbName;
 
-        _mkdirp2.default.sync(dbLocation);
+      _mkdirp2.default.sync(dbLocation);
 
-        if (!_stores[dbLocation]) {
-          _stores[dbLocation] = (0, _levelup2.default)(dbLocation, _this6.options, function (err, db) {
+      if (!_stores[dbLocation]) {
+        _stores[dbLocation] = new Promise(function (resolve, reject) {
+          (0, _levelup2.default)(dbLocation, _this6.options, function (err, db) {
             if (err) {
               reject(err);
             } else {
-              _this6._storage = db;
-              resolve();
+              resolve(db);
             }
           });
-        } else {
-          _this6._storage = _stores[dbLocation];
-          resolve();
-        }
+        });
+      }
+
+      return _stores[dbLocation].then(function (res) {
+        _this6._storage = res;
       });
     }
   }], [{
