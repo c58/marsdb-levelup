@@ -9,7 +9,7 @@ MarsDB-LevelUP
 
 ## Usage
 ```javascript
-import Collection from ‘marsdb’;
+import Collection from 'marsdb';
 import LevelStorageManager from 'marsdb-levelup';
 
 // Setup different storage managers
